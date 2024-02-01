@@ -20,6 +20,7 @@ class Maze():
         self.__cell_size_y = cell_size_y
         self.__win = win
         self._create_cells()
+        self._break_entrance_and_exit()
     
     def _create_cells(self):
         num_cells = [Cell(self.__win)] * self.__num_cols
@@ -30,7 +31,7 @@ class Maze():
         for i in range(self.__num_rows):
             for j in range(self.__num_cols):
                 self._draw_cell(i, j)
-        pass
+
 
     # i = 0, j = 0, then i = 0, j = 1, drawing first row
     # starting pos should be self.__x1, self.__y1
@@ -50,3 +51,9 @@ class Maze():
             return
         self.__win.redraw()
         time.sleep(0.05)
+    
+    def _break_entrance_and_exit(self):
+        self._cells[0][0].has_top_wall = False
+        self._draw_cell(0, 0)
+        self._cells[-1][-1].has_bottom_wall = False
+        self._draw_cell(self.__num_rows - 1, self.__num_cols - 1)
